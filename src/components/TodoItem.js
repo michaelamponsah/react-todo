@@ -9,7 +9,12 @@ class TodoItem extends Component {
 
   render() {
     const { todo } = this.props;
-    return <li>{todo.title}</li>;
+    return (
+      <li>
+        <input type="checkbox" checked={todo.isCompleted}/>
+        {todo.title}
+      </li>
+    );
   }
 }
 
@@ -17,7 +22,7 @@ TodoItem.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    completed: PropTypes.bool,
+    isCompleted: PropTypes.bool,
   }).isRequired,
 };
 export default TodoItem;

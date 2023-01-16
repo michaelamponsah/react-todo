@@ -10,17 +10,17 @@ class TodoContainer extends Component {
         {
           id: 1,
           title: 'Setup development environment',
-          completed: true,
+          isCompleted: true,
         },
         {
           id: 2,
           title: 'Develop website and add content',
-          completed: false,
+          isCompleted: false,
         },
         {
           id: 3,
           title: 'Deploy to live server',
-          completed: false,
+          isCompleted: false,
         },
       ],
     };
