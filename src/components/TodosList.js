@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class TodosList extends Component {
   constructor(props) {
@@ -12,11 +13,19 @@ class TodosList extends Component {
     return (
       <ul>
         {todos.map((todo) => (
-          <li>{todo.title}</li>
+          <li key={todo.id}>{todo.title}</li>
         ))}
       </ul>
     );
   }
 }
+
+TodosList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    completed: PropTypes.bool,
+  })).isRequired,
+};
 
 export default TodosList;
