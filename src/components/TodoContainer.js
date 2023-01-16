@@ -61,14 +61,16 @@ class TodoContainer extends Component {
   render() {
     const { todos } = this.state;
     return (
-      <div>
-        <Header />
-        <InputTodo addTodoTitle={this.addTodoTitle} />
-        <TodosList
-          todos={todos}
-          onHandleChange={this.handleChange}
-          onHandleDelete={this.handleDelete}
-        />
+      <div className="container">
+        <div className="inner">
+          <Header />
+          <InputTodo addTodoTitle={this.addTodoTitle} />
+          <TodosList
+            todos={todos}
+            onHandleChange={this.handleChange}
+            onHandleDelete={this.handleDelete}
+          />
+        </div>
       </div>
     );
   }
