@@ -8,11 +8,20 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { todo } = this.props;
+    const {
+      todo,
+      onHandleChange,
+      onHandleDelete,
+    } = this.props;
     return (
       <li>
-        <input type="checkbox" checked={todo.isCompleted}/>
+        <input
+          type="checkbox"
+          checked={todo.isCompleted}
+          onChange={() => onHandleChange(todo.id)}
+        />
         {todo.title}
+        <button type="button" onClick={() => onHandleDelete(todo.id)}>Delete</button>
       </li>
     );
   }
@@ -24,5 +33,7 @@ TodoItem.propTypes = {
     title: PropTypes.string,
     isCompleted: PropTypes.bool,
   }).isRequired,
+  onHandleChange: PropTypes.func.isRequired,
+  onHandleDelete: PropTypes.func.isRequired,
 };
 export default TodoItem;
