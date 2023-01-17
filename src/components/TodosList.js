@@ -9,7 +9,9 @@ class TodosList extends Component {
   }
 
   render() {
-    const { todos, onHandleChange, onHandleDelete } = this.props;
+    const {
+      todos, onHandleChange, onHandleDelete, setUpdate,
+    } = this.props;
 
     return (
       <ul>
@@ -19,6 +21,7 @@ class TodosList extends Component {
             todo={todo}
             onHandleChange={onHandleChange}
             onHandleDelete={onHandleDelete}
+            setUpdate={setUpdate}
           />
         ))}
       </ul>
@@ -28,12 +31,13 @@ class TodosList extends Component {
 
 TodosList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     isCompleted: PropTypes.bool,
   })).isRequired,
   onHandleChange: PropTypes.func.isRequired,
   onHandleDelete: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default TodosList;

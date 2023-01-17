@@ -10,17 +10,17 @@ class TodoContainer extends Component {
     this.state = {
       todos: [
         {
-          id: 1,
+          id: '1',
           title: 'Setup development environment',
           isCompleted: true,
         },
         {
-          id: 2,
+          id: '2',
           title: 'Develop website and add content',
           isCompleted: false,
         },
         {
-          id: 3,
+          id: '3',
           title: 'Deploy to live server',
           isCompleted: false,
         },
@@ -52,10 +52,22 @@ class TodoContainer extends Component {
     const newTodo = {
       id: uuidv4(),
       title,
-      completed: false,
+      isCompleted: false,
     };
     const { todos } = this.state;
     this.setState({ todos: [...todos, newTodo] });
+  }
+
+  setUpdate = (updatedTitle, id) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, title: updatedTitle };
+        }
+        return todo;
+      }),
+    });
   }
 
   render() {
@@ -69,6 +81,7 @@ class TodoContainer extends Component {
             todos={todos}
             onHandleChange={this.handleChange}
             onHandleDelete={this.handleDelete}
+            setUpdate={this.setUpdate}
           />
         </div>
       </div>
