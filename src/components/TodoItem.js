@@ -1,84 +1,76 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './TodoItem.module.css';
 
-class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing: false,
-    };
-  }
+const TodoItem = (props) => {
+  const {
+    todo,
+    onHandleChange,
+    onHandleDelete,
+    setUpdate,
+  } = props;
 
-  componentWillUnmount() {
+  const [isEditing, setIsEditing] = useState({ isEditing: false });
+
+  useEffect(() => () => {
     console.log('Cleaning up...');
-  }
+  }, []);
 
-  handleEditing = () => {
-    this.setState({
+  const handleEditing = () => {
+    setIsEditing({
       isEditing: true,
     });
-  }
+  };
 
-  handleUpdatedDone = (e) => {
+  const handleUpdatedDone = (e) => {
     if (e.key === 'Enter') {
-      this.setState({ isEditing: false });
+      setIsEditing({ isEditing: false });
     }
+  };
+
+  const completedStyle = {
+    fontStyle: 'italic',
+    color: '#595959',
+    opacity: 0.4,
+    textDecoration: 'line-through',
+  };
+
+  const viewMode = {};
+  const editMode = {};
+
+  if (isEditing.isEditing) {
+    viewMode.display = 'none';
+  } else {
+    editMode.display = 'none';
   }
 
-  render() {
-    const {
-      todo,
-      onHandleChange,
-      onHandleDelete,
-      setUpdate,
-    } = this.props;
-
-    const completedStyle = {
-      fontStyle: 'italic',
-      color: '#595959',
-      opacity: 0.4,
-      textDecoration: 'line-through',
-    };
-
-    const { isEditing } = this.state;
-    const viewMode = {};
-    const editMode = {};
-
-    if (isEditing) {
-      viewMode.display = 'none';
-    } else {
-      editMode.display = 'none';
-    }
-
-    return (
-      <li className={styles.item}>
-        <div onDoubleClick={this.handleEditing} style={viewMode}>
-          <input
-            type="checkbox"
-            className={styles.checkbox}
-            checked={todo.isCompleted}
-            onChange={() => onHandleChange(todo.id)}
-          />
-          <span
-            style={todo.isCompleted ? completedStyle : null}
-          >
-            {todo.title}
-          </span>
-          <button type="button" onClick={() => onHandleDelete(todo.id)}>Delete</button>
-        </div>
+  return (
+    <li className={styles.item}>
+      <div onDoubleClick={handleEditing} style={viewMode}>
         <input
-          type="text"
-          className={styles.textInput}
-          style={editMode}
-          value={todo.title}
-          onChange={(e) => setUpdate(e.target.value, todo.id)}
-          onKeyDown={this.handleUpdatedDone}
+          type="checkbox"
+          className={styles.checkbox}
+          checked={todo.isCompleted}
+          onChange={() => onHandleChange(todo.id)}
         />
-      </li>
-    );
-  }
-}
+        <span
+          style={todo.isCompleted ? completedStyle : null}
+        >
+          {todo.title}
+        </span>
+        <button type="button" onClick={() => onHandleDelete(todo.id)}>Delete</button>
+      </div>
+      <input
+        type="text"
+        className={styles.textInput}
+        style={editMode}
+        value={todo.title}
+        onChange={(e) => setUpdate(e.target.value, todo.id)}
+        onKeyDown={handleUpdatedDone}
+      />
+    </li>
+  );
+};
 
 TodoItem.propTypes = {
   todo: PropTypes.shape({

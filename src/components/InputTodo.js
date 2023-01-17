@@ -1,50 +1,41 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class InputTodo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-    };
-  }
+const InputTodo = (props) => {
+  const { addTodoTitle } = props;
+  const [inputText, setInputText] = useState({ title: '' });
 
-  handleChange = (e) => {
-    this.setState({
-      title: e.target.value,
+  const handleChange = (e) => {
+    setInputText({
+      ...inputText,
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { addTodoTitle } = this.props;
-    const { title } = this.state;
-    if (title.trim()) {
-      addTodoTitle(title);
-      this.setState({
-        title: '',
-      });
+    if (inputText.title.trim()) {
+      addTodoTitle(inputText.title);
+      setInputText({ title: '' });
     } else {
       alert('Please write item');
     }
-  }
+  };
 
-  render() {
-    const { title } = this.state;
-    return (
-      <form onSubmit={this.handleSubmit} className="form-container">
-        <input
-          type="text"
-          className="input-text"
-          placeholder="Add Todo..."
-          value={title}
-          onChange={this.handleChange}
-        />
-        <button className="input-submit" type="submit">Submit</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit} className="form-container">
+      <input
+        type="text"
+        name="title"
+        className="input-text"
+        placeholder="Add Todo..."
+        value={inputText.title}
+        onChange={handleChange}
+      />
+      <button className="input-submit" type="submit">Submit</button>
+    </form>
+  );
+};
 
 InputTodo.propTypes = {
   addTodoTitle: PropTypes.func.isRequired,
