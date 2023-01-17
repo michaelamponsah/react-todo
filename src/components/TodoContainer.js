@@ -8,24 +8,16 @@ class TodoContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        {
-          id: '1',
-          title: 'Setup development environment',
-          isCompleted: true,
-        },
-        {
-          id: '2',
-          title: 'Develop website and add content',
-          isCompleted: false,
-        },
-        {
-          id: '3',
-          title: 'Deploy to live server',
-          isCompleted: false,
-        },
-      ],
+      todos: [],
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { todos } = this.state;
+    if (prevState.todos !== todos) {
+      const temp = JSON.stringify(todos);
+      localStorage.setItem('todos', temp);
+    }
   }
 
   handleChange = (id) => {
@@ -68,6 +60,13 @@ class TodoContainer extends Component {
         return todo;
       }),
     });
+  }
+
+  componentDidMount = () => {
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    if (todos) {
+      this.setState({ todos });
+    }
   }
 
   render() {
