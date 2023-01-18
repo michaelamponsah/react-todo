@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import TodoContainer from './components/TodoContainer';
 import './App.css';
 import About from './pages/About';
@@ -14,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Navbar />
         <Routes>
           <Route
@@ -31,7 +31,7 @@ class App extends Component {
             element={<NotMatch />}
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
