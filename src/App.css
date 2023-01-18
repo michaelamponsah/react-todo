@@ -63,3 +63,23 @@ body {
   outline: none;
   border: none;
 }
+
+.active-link {
+  color: orangered;
+  text-decoration: underline;
+}
+
+.navBar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2.5em 0;
+}
+
+.navBar > ul {
+  list-style: none;
+  display: flex;
+}
+
+.navBar li {
+  margin-left: 2em;
+}

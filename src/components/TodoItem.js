@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { FaTrash } from 'react-icons/fa';
 import styles from './TodoItem.module.css';
 
 const TodoItem = (props) => {
@@ -13,7 +14,6 @@ const TodoItem = (props) => {
   const [isEditing, setIsEditing] = useState({ isEditing: false });
 
   useEffect(() => () => {
-    console.log('Cleaning up...');
   }, []);
 
   const handleEditing = () => {
@@ -58,7 +58,9 @@ const TodoItem = (props) => {
         >
           {todo.title}
         </span>
-        <button type="button" onClick={() => onHandleDelete(todo.id)}>Delete</button>
+        <button type="button" onClick={() => onHandleDelete(todo.id)}>
+          <FaTrash style={{ color: 'orangered', fontSize: '16px' }} />
+        </button>
       </div>
       <input
         type="text"
